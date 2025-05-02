@@ -3,7 +3,11 @@ package com.hippodrome;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
         List<Horse> horses = List.of(
@@ -16,6 +20,7 @@ public class Main {
                 new Horse("Cherry", 3)
         );
         Hippodrome hippodrome = new Hippodrome(horses);
+        logger.info("Horse racing start. Number of participants: {}", hippodrome.getHorses().size());
 
         for (int i = 0; i < 100; i++) {
             hippodrome.move();
@@ -24,10 +29,10 @@ public class Main {
         }
 
         String winnerName = hippodrome.getWinner().getName();
-        System.out.println(winnerName + " wins!");
+        logger.info("Horse racing is finished. Winner: {}", winnerName);
     }
 
-    private static void watch(Hippodrome hippodrome) throws Exception {
+    private static void watch(Hippodrome hippodrome) {
         hippodrome.getHorses().stream()
                 .map(horse -> ".".repeat((int) horse.getDistance()) + horse.getName())
                 .forEach(System.out::println);

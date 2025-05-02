@@ -1,5 +1,8 @@
 package com.hippodrome;
 
+import static com.hippodrome.TestDataGenerator.DEFAULT_DISTANCE;
+import static com.hippodrome.TestDataGenerator.DEFAULT_HORSE_NAME;
+import static com.hippodrome.TestDataGenerator.DEFAULT_SPEED;
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,10 +26,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class HorseTests {
-    // Default horse params
-    private static final String DEFAULT_HORSE_NAME = "Thunder";
-    private static final double DEFAULT_SPEED = 10.0;
-    private static final double DEFAULT_DISTANCE = 20.0;
     // Horse params
     private static final String NAME_PARAM = "name";
     private static final String SPEED_PARAM = "speed";
@@ -84,8 +83,8 @@ class HorseTests {
     @ParameterizedTest(name = "Create horse with name: {0}, speed: {1}, distance: {2} and check errMsg: {3}")
     @MethodSource("horseConstructorInvalidTestData")
     void checkExceptionForConstructorWithWrongParams(String name, double speed, double distance, String expErrMsg) {
-        Exception thrownExcptn = assertThrows(IllegalArgumentException.class, () -> new Horse(name, speed, distance));
-        String actualMsg = thrownExcptn.getMessage();
+        Exception thrownException = assertThrows(IllegalArgumentException.class, () -> new Horse(name, speed, distance));
+        String actualMsg = thrownException.getMessage();
         assertTrue(actualMsg.equalsIgnoreCase(expErrMsg), format("Expected: '%s', Actual: '%s'", expErrMsg, actualMsg));
     }
 
