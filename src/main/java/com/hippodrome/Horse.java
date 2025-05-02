@@ -1,3 +1,5 @@
+package com.hippodrome;
+
 import static java.util.Objects.isNull;
 
 public class Horse {
